@@ -1,8 +1,11 @@
-import streamlit as st
+from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 import os
 import PyPDF2 as pdf
 from dotenv import load_dotenv
+
+# Initialize Flask app
+app = Flask(__name__)
 
 # Load environment variables
 load_dotenv()
@@ -25,7 +28,7 @@ def input_pdf_text(uploaded_file):
 
 # Function to parse the response string
 def parse_response(response):
-    jd_match = response.split('"JD Match":"')[1].split('"')[0]
+    jd_match = response.split('"JD Match":"')[1].split('"')[0].strip('%')
     missing_keywords = response.split('"MissingKeywords":[')[1].split(']')[0].replace('"', '')
     profile_summary = response.split('"Profile Summary":"')[1].split('"}')[0]
     return jd_match, missing_keywords, profile_summary
@@ -43,49 +46,35 @@ resume:{text}
 description:{jd}
 
 I want the response in one single string having the structure
-{{"JD Match":"%","MissingKeywords:[]","Profile Summary":""}}
+{{"JD Match":"","MissingKeywords":[ ],"Profile Summary":""}}
 """
 
-# Streamlit app
-st.set_page_config(page_title="Smart ATS", layout="wide")
-st.title("Smart ATS: Improve Your Resume for ATS")
+# Flask route for the homepage
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        jd = request.form['job_description']
+        resume_file = request.files['resume']
 
-st.markdown("### Upload Your Resume and Paste the Job Description to Get Started")
-
-# Use columns to organize the input fields
-col1, col2 = st.columns(2)
-
-with col1:
-    jd = st.text_area("Paste the Job Description", help="Copy and paste the job description you want to match your resume with.")
-
-with col2:
-    uploaded_file = st.file_uploader("Upload Your Resume (PDF)", type="pdf", help="Please upload your resume in PDF format.")
-
-submit = st.button("Submit")
-
-if submit:
-    if uploaded_file is not None and jd.strip() != "":
-        with st.spinner("Processing..."):
-            resume_text = input_pdf_text(uploaded_file)
+        if resume_file and jd.strip():
+            # Extract text from uploaded PDF
+            resume_text = input_pdf_text(resume_file)
+            
+            # Create the prompt for the Gemini API
             prompt = input_prompt.format(text=resume_text, jd=jd)
+            
+            # Get response from the Gemini API
             response = get_gemini_response(prompt)
+            
+            # Parse the response
             jd_match, missing_keywords, profile_summary = parse_response(response)
+            
+            # Return the results to the user
+            return render_template('result.html', jd_match=jd_match, missing_keywords=missing_keywords, profile_summary=profile_summary)
+    
+    # On GET request, show the upload form
+    return render_template('index.html')
 
-        # Display the results in an organized manner
-        st.success("Analysis Complete!")
-        
-        st.markdown("### Results")
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("JD Match")
-            st.metric(label="Match Percentage", value=jd_match)
-        
-        with col2:
-            st.subheader("Missing Keywords")
-            st.write(missing_keywords if missing_keywords else "None")
-        
-        st.subheader("Profile Summary")
-        st.write(profile_summary)
-    else:
-        st.error("Please upload a resume and paste a job description.")
+# Run the Flask app
+if __name__ == "__main__":
+    app.run(debug=True)

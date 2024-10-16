@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Smart ATS</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> Smart ATS : Improve Your Resume for ATS</h1>
+            <p>Upload your resume and job description to get started.</p>
+        </header>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="upload-section">
+                <label class="upload-label" for="job_description">Paste the Job Description</label>
+                <textarea id="job_description" name="job_description" rows="10" required></textarea><br><br>
+                
+                <label class="upload-label" for="resume">Upload Your Resume (PDF)</label>
+                <input type="file" id="resume" name="resume" accept="application/pdf" required>
+            </div>
+            
+            <button type="submit" id="upload-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

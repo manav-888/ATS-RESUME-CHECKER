@@ -1,0 +1,144 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #f1f1f1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Container */
+.container {
+    text-align: center;
+    background-color: #12e358 ;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 990px;
+    width: 70%;
+}
+
+/* Header Styles */
+header h1 {
+    font-size: 2.5rem;
+    color: #0b0b0b; /* Dark teal */
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+/* Upload Section */
+.upload-section {
+    background-color: #e1f5fe; /* Light blue */
+    border: 2px dashed #009688; /* Dark teal */
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.upload-label {
+    display: block;
+    font-size: 1.1rem;
+    color: #009688; /* Dark teal */
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+/* Textarea Styling */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #009688; /* Dark teal */
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    resize: none; /* Disable resizing */
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #004d40; /* Darker teal */
+}
+
+/* File Upload Button */
+#resume-upload {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+#upload-btn {
+    background-color: #2f66fc; /* Dark teal */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+#upload-btn:hover {
+    background-color: #00796b; /* Darker teal */
+}
+
+/* Footer */
+footer p {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Results Section */
+.results {
+    background-color: #e0f7fa; /* Light cyan */
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.results h2 {
+    color: #00796b; /* Dark teal */
+    margin-bottom: 0.5rem;
+}
+
+.results p {
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Results Layout */
+.results-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.results-container div {
+    width: 48%; /* Ensures the sections are side by side */
+    text-align: left; /* Align text to the left */
+}
+
+/* Profile Summary */
+.profile-summary {
+    text-align: left;
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #009688; /* Dark teal */
+    border-radius: 5px;
+    background-color: #f1f8e9; /* Light green background */
+}

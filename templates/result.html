@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Analysis Results</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Analysis Complete!</h1>
+        
+        <div class="results">
+            <div class="results-container">
+                <div class="jd-match">
+                    <h2>JD Match</h2>
+                    <p>Match Percentage: <strong>{{ jd_match }}%</strong></p>
+                </div>
+
+                <div class="missing-keywords">
+                    <h2>Missing Keywords</h2>
+                    <p>
+                        {% if missing_keywords %}
+                            {{ missing_keywords | replace(',', ', ') }}
+                        {% else %}
+                            None
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="profile-summary">
+                <h2>Profile Summary</h2>
+                <p style="white-space: pre-line;">{{ profile_summary }}</p>  <!-- Preserves formatting -->
+            </div>
+        </div>
+        
+        <a href="/">Go back</a>
+    </div>
+</body>
+</html>
