@@ -1,6 +1,5 @@
 # ATS-Powered Resume Analyzer
 
-# updated Version
 
 ![Screenshot 2024-10-16 at 11 43 23 PM](https://github.com/user-attachments/assets/a342c101-05ef-4595-b029-efdc5596829f)
 ![Screenshot 2024-10-16 at 11 44 10 PM](https://github.com/user-attachments/assets/95ee29a0-70c7-4d0f-b291-39f4288e42fb)
